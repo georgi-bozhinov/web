@@ -6,6 +6,7 @@ sap.ui.jsview("jds.tree", {
   createContent: function (oController) {
     var backendURL = "/api/addressbook/tree";
     var oModel = new sap.ui.model.json.JSONModel(backendURL, false);
+    sap.ui.getCore().setModel(oModel, "oModel");
     var restErrorMessage =
       "Something has gone wrong while accessing the REST service at " +
       backendURL +
@@ -56,6 +57,7 @@ sap.ui.jsview("jds.tree", {
     var oPanel = new sap.ui.commons.Panel()
       .setText("Address Books")
       .addContent(oTable);
+
     return oPanel;
   }
 });

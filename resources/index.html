@@ -1,64 +1,64 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
+
+<head>
     <title>Address Books</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-        <script src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
-                id="sap-ui-bootstrap"
-                data-sap-ui-libs="sap.ui.commons, sap.ui.ux3, sap.ui.table"
-                data-sap-ui-theme="sap_bluecrystal">
+    <script src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js" id="sap-ui-bootstrap" data-sap-ui-libs="sap.ui.commons, sap.ui.ux3, sap.ui.table"
+        data-sap-ui-theme="sap_bluecrystal">
         </script>
 
-         <script>
-            sap.ui.localResources("jds")
-            //sap.ui.localResources("user")
+    <script>
+        sap.ui.localResources("jds")
+        //sap.ui.localResources("user")
 
-            var oShell = new sap.ui.ux3.Shell({
-                id : "AddressbookShell",
-                appTitle : "Address Book (knative microservice example)",
-                showLogoutButton : true,
-                showSearchTool : false,
-                showFeederTool : false,
-                showTools : false,
-                showPane : false,
-                designType : sap.ui.ux3.ShellDesignType.Crystal,
-            })
-            oShell.addWorksetItem(new sap.ui.ux3.NavigationItem({
-                id : "nav-tree",
-                text : "Books",
-                key : "books"
-            }))
-            oShell.addWorksetItem(new sap.ui.ux3.NavigationItem({
-                id : "userinfo",
-                text : "User info",
-                key : "userinfo"
-            }))
-            oShell.addStyleClass('sapDkShell')
+        var oShell = new sap.ui.ux3.Shell({
+            id: "AddressbookShell",
+            appTitle: "Address Book (knative microservice example)",
+            showLogoutButton: true,
+            showSearchTool: false,
+            showFeederTool: false,
+            showTools: false,
+            showPane: false,
+            designType: sap.ui.ux3.ShellDesignType.Crystal,
+        })
+        oShell.addWorksetItem(new sap.ui.ux3.NavigationItem({
+            id: "nav-tree",
+            text: "Books",
+            key: "books"
+        }))
+        oShell.addWorksetItem(new sap.ui.ux3.NavigationItem({
+            id: "userinfo",
+            text: "User info",
+            key: "userinfo"
+        }))
+        oShell.addStyleClass('sapDkShell')
 
-            //var mUserinfoContent = new sap.ui.view({id:"userinfoContent", viewName:"user.info", type:sap.ui.core.mvc.ViewType.JS})
+        //var mUserinfoContent = new sap.ui.view({id:"userinfoContent", viewName:"user.info", type:sap.ui.core.mvc.ViewType.JS})
 
-            var mBooksContent = new sap.ui.view({id:"booksContent", viewName:"jds.tree", type:sap.ui.core.mvc.ViewType.JS})
+        var mBooksContent = new sap.ui.view({ id: "booksContent", viewName: "jds.tree", type: sap.ui.core.mvc.ViewType.JS })
 
-             oShell.attachWorksetItemSelected(function(oEvent) {
-                 var itemKey = oEvent.getParameter("key")
-                 if(itemKey === "books") {
-                     oShell.setContent(mBooksContent)
-                 }
-             });
-            //     else if(itemKey === "userinfo") {
-            //         oShell.setContent(mUserinfoContent)
-            //     }
-            //oShell.attachLogout(function(oEvent) {
-            //    window.location.replace('/do/logout');
-            //})
-            //initial content is the books list
-            oShell.setContent(mBooksContent)
-            oShell.placeAt("content")
-       </script>
-    </head>
-    <body class="sapUiBody" role="application">
-        <div id="content"></div>
-    </body>
+        oShell.attachWorksetItemSelected(function (oEvent) {
+            var itemKey = oEvent.getParameter("key")
+            if (itemKey === "books") {
+                oShell.setContent(mBooksContent)
+            }
+        });
+        //     else if(itemKey === "userinfo") {
+        //         oShell.setContent(mUserinfoContent)
+        //     }
+        //oShell.attachLogout(function(oEvent) {
+        //    window.location.replace('/do/logout');
+        //})
+        //initial content is the books list
+        oShell.setContent(mBooksContent)
+        oShell.placeAt("content")
+    </script>
+</head>
+
+<body class="sapUiBody" role="application">
+    <div id="content"></div>
+</body>
+
 </html>
-

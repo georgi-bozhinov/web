@@ -1,5 +1,6 @@
 sap.ui.controller("jds.tree", {
   onCreateAddressBook: function () {
+    var oModel = sap.ui.getCore().getModel("oModel");
     jQuery.ajax({
       type: "GET",
       contentType: "application/json",
@@ -18,6 +19,7 @@ sap.ui.controller("jds.tree", {
   },
 
   onDeleteAddressBook: function () {
+    var oModel = sap.ui.getCore().getModel("oModel");
     jQuery.ajax({
       type: "GET",
       contentType: "application/json",
