@@ -1,38 +1,43 @@
 sap.ui.controller("jds.tree", {
+  onCreateAddressBook: function () {
+    jQuery.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: "/api/addressbook/insert",
+      dataType: "json",
+      async: false,
+      success: function (data, textStatus, jqXHR) {
+        oModel.loadData("/api/addressbook/tree");
+      },
+      statusCode: {
+        401: function () {
+          location.reload();
+        }
+      }
+    })
+  },
 
-/**
-* Called when a controller is instantiated and its View controls (if available) are already created.
-* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-* @memberOf bboard.Threads
-*/
-//	onInit: function() {
-//
-//	},
-
-/**
-* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-* (NOT before the first rendering! onInit() is used for that one!).
-* @memberOf bboard.Threads
-*/
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
-* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-* This hook is the same one that SAPUI5 controls get after being rendered.
-* @memberOf bboard.Threads
-*/
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
-* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-* @memberOf bboard.Threads
-*/
-//	onExit: function() {
-//
-//	}
-
+  onDeleteAddressBook: function () {
+    jQuery.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: "/api/addressbook/delete",
+      dataType: "json",
+      async: false,
+      success: function (data, textStatus, jqXHR) {
+        oModel.loadData("/api/addressbook/tree");
+      },
+      statusCode: {
+        401: function () {
+          location.reload();
+        },
+        403: function () {
+          alert(
+            "You are not authorized to Delete Data! To remedy this, your user needs to get the Delete scope. " +
+            "Thus, create a role based on the Editor role template and assign the role to a group which contains your user!"
+          );
+        }
+      }
+    });
+  }
 });
