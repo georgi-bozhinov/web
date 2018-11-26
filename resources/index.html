@@ -11,7 +11,7 @@
 
     <script>
         sap.ui.localResources("jds")
-        //sap.ui.localResources("user")
+        sap.ui.localResources("user")
 
         var oShell = new sap.ui.ux3.Shell({
             id: "AddressbookShell",
@@ -35,7 +35,7 @@
         }))
         oShell.addStyleClass('sapDkShell')
 
-        //var mUserinfoContent = new sap.ui.view({id:"userinfoContent", viewName:"user.info", type:sap.ui.core.mvc.ViewType.JS})
+        var mUserinfoContent = new sap.ui.view({ id: "userinfoContent", viewName: "user.info", type: sap.ui.core.mvc.ViewType.JS })
 
         var mBooksContent = new sap.ui.view({ id: "booksContent", viewName: "jds.tree", type: sap.ui.core.mvc.ViewType.JS })
 
@@ -44,10 +44,11 @@
             if (itemKey === "books") {
                 oShell.setContent(mBooksContent)
             }
+            else if (itemKey === "userinfo") {
+                oShell.setContent(mUserinfoContent)
+            }
         });
-        //     else if(itemKey === "userinfo") {
-        //         oShell.setContent(mUserinfoContent)
-        //     }
+
         //oShell.attachLogout(function(oEvent) {
         //    window.location.replace('/do/logout');
         //})
