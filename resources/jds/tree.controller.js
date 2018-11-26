@@ -1,6 +1,30 @@
 sap.ui.controller("jds.tree", {
+
+  getModel() {
+    if (!this.model) {
+      var url = '/api/addressbook/tree';
+      var oModel = new sap.ui.model.json.JSONModel(url, false);
+      var restErrorMessage =
+        "Something has gone wrong while accessing the REST service at " + url +
+        ". Please check whether the node.js application " +
+        "is up and running. Depending on your runtime either execute 'cf logs node-hello-world-backend --recent' or 'xs logs node-hello-world-backend --recent'.";
+
+      oModel.attachParseError(function (oControlEvent) {
+        alert(restErrorMessage);
+      });
+
+      oModel.attachRequestFailed(function (oControlEvent) {
+        alert(restErrorMessage);
+      });
+
+      this.model = oModel;
+    }
+
+    return this.model;
+  },
+
   onCreateAddressBook: function () {
-    var oModel = sap.ui.getCore().getModel("oModel");
+    var oModel = this.getModel();
     jQuery.ajax({
       type: "GET",
       contentType: "application/json",
@@ -19,7 +43,7 @@ sap.ui.controller("jds.tree", {
   },
 
   onDeleteAddressBook: function () {
-    var oModel = sap.ui.getCore().getModel("oModel");
+    var oModel = this.getModel();
     jQuery.ajax({
       type: "GET",
       contentType: "application/json",

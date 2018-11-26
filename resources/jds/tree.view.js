@@ -4,23 +4,6 @@ sap.ui.jsview("jds.tree", {
   },
 
   createContent: function (oController) {
-    var backendURL = "/api/addressbook/tree";
-    var oModel = new sap.ui.model.json.JSONModel(backendURL, false);
-    sap.ui.getCore().setModel(oModel, "oModel");
-    var restErrorMessage =
-      "Something has gone wrong while accessing the REST service at " +
-      backendURL +
-      ". Please check whether the node.js application " +
-      "is up and running. Depending on your runtime either execute 'cf logs node-hello-world-backend --recent' or 'xs logs node-hello-world-backend --recent'.";
-
-    oModel.attachParseError(function (oControlEvent) {
-      alert(restErrorMessage);
-    });
-
-    oModel.attachRequestFailed(function (oControlEvent) {
-      alert(restErrorMessage);
-    });
-
     var oTable = new sap.ui.table.TreeTable({
       id: "AddressBookOverview",
       columns: [
@@ -34,7 +17,7 @@ sap.ui.jsview("jds.tree", {
       selectionBehavior: sap.ui.table.SelectionBehavior.Row
     });
 
-    oTable.setModel(oModel);
+    oTable.setModel(oController.getModel());
     var oSorter = new sap.ui.model.Sorter("name");
     oTable.bindRows("/books", oSorter);
 
