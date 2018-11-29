@@ -3,19 +3,23 @@ sap.ui.controller("jds.tree", {
   getModel() {
     if (!this.model) {
       var url = '/api/addressbook/tree';
-      var oModel = new sap.ui.model.json.JSONModel(url, false);
-      var restErrorMessage =
-        "Something has gone wrong while accessing the REST service at " + url +
-        ". Please check whether the node.js application " +
-        "is up and running. Depending on your runtime either execute 'cf logs node-hello-world-backend --recent' or 'xs logs node-hello-world-backend --recent'.";
+      const oHeaders = {
+        'Authorization': `Bearer ${keycloak.token}`
+      }
+      var oModel = new sap.ui.model.json.JSONModel(null, false);
+      oModel.loadData(url, null, true, "GET", null, false, oHeaders);
+      // var restErrorMessage =
+      //   "Something has gone wrong while accessing the REST service at " + url +
+      //   ". Please check whether the node.js application " +
+      //   "is up and running. Depending on your runtime either execute 'cf logs node-hello-world-backend --recent' or 'xs logs node-hello-world-backend --recent'.";
 
-      oModel.attachParseError(function (oControlEvent) {
-        alert(restErrorMessage);
-      });
+      // oModel.attachParseError(function (oControlEvent) {
+      //   alert(restErrorMessage);
+      // });
 
-      oModel.attachRequestFailed(function (oControlEvent) {
-        alert(restErrorMessage);
-      });
+      // oModel.attachRequestFailed(function (oControlEvent) {
+      //   alert(restErrorMessage);
+      // });
 
       this.model = oModel;
     }
@@ -24,38 +28,49 @@ sap.ui.controller("jds.tree", {
   },
 
   onCreateAddressBook: function () {
+    const oHeaders = {
+      'Authorization': `Bearer ${keycloak.token}`
+    }
     var oModel = this.getModel();
     jQuery.ajax({
       type: "GET",
       contentType: "application/json",
       url: "/api/addressbook/insert",
+      headers: oHeaders,
       dataType: "json",
       async: false,
       success: function (data, textStatus, jqXHR) {
-        oModel.loadData("/api/addressbook/tree");
+        oModel.loadData("/api/addressbook/tree", null, true, "GET", null, false, oHeaders);
       },
       statusCode: {
         401: function () {
-          location.reload();
+          alert("Unauthorized!")
         }
       }
     })
   },
 
   onDeleteAddressBook: function () {
+    const oHeaders = {
+      'Authorization': `Bearer ${keycloak.token}`
+    }
     var oModel = this.getModel();
     jQuery.ajax({
       type: "GET",
       contentType: "application/json",
       url: "/api/addressbook/delete",
+      headers: oHeaders,
       dataType: "json",
       async: false,
+      headers: {
+        'Authorization': `Bearer ${keycloak.token}`
+      },
       success: function (data, textStatus, jqXHR) {
-        oModel.loadData("/api/addressbook/tree");
+        oModel.loadData("/api/addressbook/tree", null, true, "GET", null, false, oHeaders);
       },
       statusCode: {
         401: function () {
-          location.reload();
+          alert("Unauthorized!")
         },
         403: function () {
           alert(

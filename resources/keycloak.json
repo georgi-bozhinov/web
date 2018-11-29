@@ -1,0 +1,9 @@
+{
+    "realm": "knative-demo",
+    "auth-server-url": "http://localhost:30080/auth",
+    "ssl-required": "external",
+    "resource": "python",
+    "public-client": true,
+    "confidential-port": 0,
+    "enable-cors": true
+}
