@@ -53,9 +53,9 @@
                     }
                 });
 
-                //oShell.attachLogout(function(oEvent) {
-                //    window.location.replace('/do/logout');
-                //})
+                oShell.attachLogout(function (oEvent) {
+                    keycloak.logout()
+                })
                 //initial content is the books list
                 oShell.setContent(mBooksContent)
                 oShell.placeAt("content")
