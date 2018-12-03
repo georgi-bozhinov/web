@@ -8,18 +8,19 @@ sap.ui.controller("jds.tree", {
       }
       var oModel = new sap.ui.model.json.JSONModel(null, false);
       oModel.loadData(url, null, true, "GET", null, false, oHeaders);
-      // var restErrorMessage =
-      //   "Something has gone wrong while accessing the REST service at " + url +
-      //   ". Please check whether the node.js application " +
-      //   "is up and running. Depending on your runtime either execute 'cf logs node-hello-world-backend --recent' or 'xs logs node-hello-world-backend --recent'.";
 
-      // oModel.attachParseError(function (oControlEvent) {
-      //   alert(restErrorMessage);
-      // });
+      var restErrorMessage =
+        "Something has gone wrong while accessing the REST service at " + url +
+        ". Please check whether the node.js application " +
+        "is up and running. Depending on your runtime either execute 'cf logs node-hello-world-backend --recent' or 'xs logs node-hello-world-backend --recent'.";
 
-      // oModel.attachRequestFailed(function (oControlEvent) {
-      //   alert(restErrorMessage);
-      // });
+      oModel.attachParseError(function (oControlEvent) {
+        alert(restErrorMessage);
+      });
+
+      oModel.attachRequestFailed(function (oControlEvent) {
+        alert(restErrorMessage);
+      });
 
       this.model = oModel;
     }

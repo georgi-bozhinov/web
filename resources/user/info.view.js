@@ -25,7 +25,7 @@ sap.ui.jsview("user.info", {
         })
         userNameValue = new sap.ui.commons.TextView({
             // text: "{/user/id}"
-            text: 'Username'
+            text: keycloak.idTokenParsed.preferred_username
         })
         firstNameLabel = new sap.ui.commons.Label({
             text: 'First name',
@@ -33,7 +33,7 @@ sap.ui.jsview("user.info", {
         })
         firstNameValue = new sap.ui.commons.TextView({
             // text: "{/user/name/givenName}"
-            text: 'First name'
+            text: keycloak.idTokenParsed.given_name
         })
         lastNameLabel = new sap.ui.commons.Label({
             text: 'Last name',
@@ -41,7 +41,7 @@ sap.ui.jsview("user.info", {
         })
         lastNameValue = new sap.ui.commons.TextView({
             // text: "{/user/name/familyName}"
-            text: 'Last name'
+            text: keycloak.idTokenParsed.family_name
         })
         oLayoutJwt.createRow(userNameLabel, userNameValue)
         oLayoutJwt.createRow(firstNameLabel, firstNameValue)
